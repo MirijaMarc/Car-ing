@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineProps, onMounted } from 'vue'
+import Sidebar from './components/Sidebar.vue';
+
+
 </script>
 
 <template>
-
-  <p class="text-violet-500">Bonjour</p>
+    <router-view />
 
 </template>

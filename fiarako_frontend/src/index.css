@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active-sidebar{
+    @apply bg-gray-100
+}
