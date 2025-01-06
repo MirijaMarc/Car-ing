@@ -3,5 +3,34 @@
 @tailwind utilities;
 
 .active-sidebar{
-    @apply bg-gray-100
+    @apply text-blue-600
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+  }
+  
+html,body {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Pour tout le document */
+::-webkit-scrollbar {
+  width: 7px; /* largeur de la barre de défilement */
+  height: 12px; /* hauteur de la barre de défilement horizontale */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* couleur de fond de la piste de défilement */
+  border-radius: 10px; /* arrondir les coins de la piste */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-lg
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400
 }

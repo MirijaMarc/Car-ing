@@ -53,7 +53,6 @@ CREATE TABLE couleurs (
 
 CREATE TABLE annonces (
     id SERIAL PRIMARY KEY,
-    immatriculation VARCHAR(255) NOT NULL,
     annee INTEGER NOT NULL,
     kilometrage INTEGER NOT NULL,
     prix DECIMAL NOT NULL,
@@ -61,6 +60,7 @@ CREATE TABLE annonces (
     volant INTEGER NOT NULL,
     climatisation INTEGER NOT NULL,
     moteur VARCHAR(255) NOT NULL,
+    carrosseries INTEGER NOT NULL,
     date_annonce DATE NOT NULL,
     etat INTEGER NOT NULL,
     modele_id INTEGER NOT NULL,
@@ -72,7 +72,8 @@ CREATE TABLE annonces (
     FOREIGN KEY (carburant_id) REFERENCES carburants(id),
     FOREIGN KEY (boite_id) REFERENCES boites(id),
     FOREIGN KEY (couleur_id) REFERENCES couleurs(id),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
+    FOREIGN KEY (carrosserie_id) REFERENCES carrosseries(id)
 );
 
 CREATE TABLE images (
