@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
     <!-- Titre de l'annonce -->
     <h1 class="text-2xl font-bold text-gray-900 mb-4">{{ modele.nom }}</h1>
     <p class="text-sm text-gray-500 mb-4">Publié {{ timeSince(annonce.date_annonce) }}</p>

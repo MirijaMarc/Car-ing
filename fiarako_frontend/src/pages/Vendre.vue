@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+  <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une nouvelle annonce</h2>
     <form @submit.prevent="submitForm">
       <!-- Section : Marque et Modèle -->
@@ -163,6 +163,55 @@
         </div>
       </div>
 
+
+
+      <!-- Section : Description -->
+      <div class="mb-6">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="description"
+          v-model="form.description"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          placeholder="Décrivez votre annonce..."
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <div class="mb-6">
+        <label for="images" class="block text-sm font-medium text-gray-700">Images</label>
+        <input
+          id="images"
+          type="file"
+          ref="fileInput"
+          multiple
+          accept="image/*"
+          @change="handleImageUpload"
+          class="mt-1 block w-full text-sm text-gray-500
+                 file:mr-4 file:py-2 file:px-4
+                 file:rounded-md file:border-0
+                 file:text-sm file:font-semibold
+                 file:bg-blue-50 file:text-blue-700
+                 hover:file:bg-blue-100"
+        />
+        <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div v-for="(image, index) in previewImages" :key="index" class="relative">
+            <img
+              :src="image"
+              alt="Prévisualisation de l'image"
+              class="w-full h-32 object-cover rounded-md shadow-md"
+            />
+            <button
+              type="button"
+              class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded"
+              @click="removeImage(index)"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Bouton de soumission -->
       <div class="text-right">
         <button
@@ -200,15 +249,15 @@ export default {
       carburants: [],
       transmissions: [],
       couleurs: [],
+      images: [], // Tableau pour stocker les fichiers image
+      previewImages: [], // Tableau pour stocker les URLs des images à prévisualiser
     };
   },
   methods: {
     async loadMarques() {
-      // Charger les marques depuis l'API ou la base
       this.marques = await fetch("/api/marques").then((res) => res.json());
     },
     async loadModeles() {
-      // Charger les modèles associés à une marque
       if (this.form.marqueId) {
         this.modeles = await fetch(`/api/modeles?marque_id=${this.form.marqueId}`).then((res) =>
           res.json()
@@ -216,15 +265,51 @@ export default {
       }
     },
     async loadOthers() {
-      // Charger les autres entités
       this.carrosseries = await fetch("/api/carrosseries").then((res) => res.json());
       this.carburants = await fetch("/api/carburants").then((res) => res.json());
       this.transmissions = await fetch("/api/transmissions").then((res) => res.json());
       this.couleurs = await fetch("/api/couleurs").then((res) => res.json());
     },
+    handleImageUpload(event) {
+    const files = Array.from(event.target.files);
+
+    // Ajouter les nouveaux fichiers à la liste existante
+    files.forEach((file) => {
+      this.images.push(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.previewImages.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Recrée la liste de fichiers combinée (anciens + nouveaux)
+    const dataTransfer = new DataTransfer();
+    this.images.forEach((file) => {
+      dataTransfer.items.add(file);
+    });
+
+    // Réinitialise le champ input avec la liste combinée
+    this.$refs.fileInput.files = dataTransfer.files;
+  },
+
+  removeImage(index) {
+    // Supprime l'image des listes
+    this.images.splice(index, 1);
+    this.previewImages.splice(index, 1);
+
+    // Recrée une liste de fichiers après suppression
+    const dataTransfer = new DataTransfer();
+    this.images.forEach((file) => {
+      dataTransfer.items.add(file);
+    });
+
+    // Réinitialise le champ input avec la nouvelle liste
+    this.$refs.fileInput.files = dataTransfer.files;
+  },
     async submitForm() {
-      // Soumettre le formulaire
       console.log("Form data:", this.form);
+      console.log("Uploaded images:", this.images);
       alert("Annonce ajoutée avec succès !");
     },
   },

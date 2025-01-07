@@ -13,7 +13,6 @@ class CarburantController extends Controller
         $perPage = $request->input('per_page', 15); // Par défaut, 15 résultats par page
 
         $carburants = Carburant::where('etat', '>=', 10)
-            ->orderByDesc('created_at') // Tri décroissant par la date d'ajout
             ->paginate($perPage); // Pagination
 
         return response()->json($carburants);

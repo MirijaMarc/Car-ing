@@ -1,4 +1,5 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import Layout from '@/layouts/Layout.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -9,6 +10,10 @@ const router = createRouter({
       path: '/',
       component: DefaultLayout,
       children:[
+        {
+          path : '',
+          redirect: { name: 'Home' }
+        },
         {
           path : 'home',
           name : 'Home',
@@ -25,11 +30,6 @@ const router = createRouter({
           component: () => import('@/pages/Inscription.vue')
         },
         {
-          path : 'profil',
-          name : 'Profil',
-          component: () => import('@/pages/Profil.vue')
-        },
-        {
           path : 'moto',
           name : 'Moto',
           component: () => import('@/pages/Moto.vue')
@@ -39,14 +39,25 @@ const router = createRouter({
           name : 'Voiture',
           component: () => import('@/pages/Voiture.vue')
         },
+      ]
+    },
+    {
+      path: '/', // Groupe pour OtherLayout
+      component: Layout, // Nouveau layout
+      children: [
         {
-          path : 'vendre',
-          name : 'Vendre',
+          path: 'profil',
+          name: 'Profil',
+          component: () => import('@/pages/Profil.vue')
+        },
+        {
+          path: 'vendre',
+          name: 'Vendre',
           component: () => import('@/pages/Vendre.vue')
         },
         {
-          path : 'vehicule-detail',
-          name : 'detail',
+          path: 'vehicule-detail',
+          name: 'Detail',
           component: () => import('@/pages/VehiculeDetail.vue')
         }
       ]

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\CarburantController;
 use App\Http\Controllers\CarrosserieController;
 use App\Http\Controllers\CouleurController;
@@ -26,3 +27,5 @@ Route::apiResource('modeles', ModeleController::class);
 Route::apiResource('offres', OffreController::class);
 Route::apiResource('transmissions', TransmissionController::class);
 Route::apiResource('vues', VueController::class);
+Route::apiResource('annonces', AnnonceController::class);
+Route::get('/annonces', [AnnonceController::class, 'getFilteredAnnonces']);

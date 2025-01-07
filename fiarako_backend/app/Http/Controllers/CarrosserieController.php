@@ -13,7 +13,6 @@ class CarrosserieController extends Controller
         $perPage = $request->input('per_page', 15); // Pagination, 15 résultats par page par défaut
 
         $carrosseries = Carrosserie::where('etat', '>=', 10)
-            ->orderByDesc('created_at') // Tri décroissant par date d'ajout
             ->paginate($perPage); // Pagination
 
         return response()->json($carrosseries);

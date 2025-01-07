@@ -46,7 +46,7 @@
           <span class="text-gray-700">{{ item.year }}</span>
         </div>
         <div class="flex items-center">
-          <i class="fas fa-gas-pump text-green-500 mr-2"></i>
+          <i class="fas fa-gas-pump text-yellow-300 mr-2"></i>
           <span class="text-gray-700">{{ item.fuelType }}</span>
         </div>
       </div>
@@ -57,7 +57,7 @@
         Publié {{ timeSince(item.publishedDate) }}
       </div>
     </div>
-  </router-link>  
+  </router-link>
   </div>
 </template>
 

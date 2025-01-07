@@ -11,7 +11,6 @@ class TransmissionController extends Controller
     public function index()
     {
         $transmissions = Transmission::where('etat', '>=', 10) // Filtrer les transmissions avec état >= 10
-            ->orderBy('created_at', 'desc') // Trier par date de création (ordre décroissant)
             ->paginate(10); // Pagination de 10 résultats par page
 
         return response()->json($transmissions);

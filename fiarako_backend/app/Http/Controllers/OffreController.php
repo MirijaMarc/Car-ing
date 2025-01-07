@@ -11,7 +11,6 @@ class OffreController extends Controller
     public function index()
     {
         $offres = Offre::where('etat', '>=', 10) // Filtrer les offres avec état >= 10
-            ->orderBy('created_at', 'desc') // Trier par date de création (ordre décroissant)
             ->paginate(10); // Pagination de 10 résultats par page
 
         return response()->json($offres);
