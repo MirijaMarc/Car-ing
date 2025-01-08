@@ -11,6 +11,7 @@
         <!-- Filters -->
         <div class="space-y-6">
 
+
          <!-- Marques -->
           <div class="space-y-3">
             <label class="text-gray-700">Marque</label>
@@ -55,11 +56,11 @@
 
             <div class="flex justify-evenly">
                 <div class="flex items-center me-4">
-                    <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="inline-radio" type="radio" value="" name="statut" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Neuf</label>
                 </div>
                 <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="inline-2-radio" type="radio" value="" name="statut" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Occasion</label>
                 </div>
             </div>
@@ -71,12 +72,12 @@
             <label class="text-gray-700">Volant</label>
             <div class="flex justify-evenly">
                 <div class="flex items-center me-4">
-                    <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Gauche</label>
+                    <input id="inline-radio2" type="radio" value="" name="volant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-radio2" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Gauche</label>
                 </div>
                 <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Droite</label>
+                    <input id="inline-2-radio3" type="radio" value="" name="volant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-2-radio3" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Droite</label>
                 </div>
             </div>
           </div>
@@ -96,12 +97,12 @@
             <label class="text-gray-700">Climatisation</label>
             <div class="flex justify-evenly">
                 <div class="flex items-center me-4">
-                    <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Oui</label>
+                    <input id="inline-radio4" type="radio" value="" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-radio4" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Oui</label>
                 </div>
                 <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Non</label>
+                    <input id="inline-2-radio5" type="radio" value="" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-2-radio5" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Non</label>
                 </div>
             </div>
           </div>
@@ -129,17 +130,17 @@
 
             <div class="flex justify-evenly">
                 <div class="flex items-center me-4">
-                    <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Essence</label>
+                    <input id="inline-radio5" type="radio" value="" name="carburant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-radio5" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Essence</label>
                 </div>
                 <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Diesel</label>
+                    <input id="inline-2-radio6" type="radio" value="" name="carburant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-2-radio6" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Diesel</label>
                 </div>
 
                 <div class="flex items-center me-4">
-                    <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Electrique</label>
+                    <input id="inline-2-radio7" type="radio" value="" name="carburant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="inline-2-radio7" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Electrique</label>
                 </div>
             </div>
           </div>

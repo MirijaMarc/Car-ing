@@ -28,6 +28,7 @@ CREATE TABLE modeles (
 CREATE TABLE carrosseries (
     id SERIAL PRIMARY KEY,
     label VARCHAR(255) NOT NULL,
+    isMoto boolean NOT NULL,
     etat INTEGER NOT NULL CHECK(etat IN (0, 1))
 );
 

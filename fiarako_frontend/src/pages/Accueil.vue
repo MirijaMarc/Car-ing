@@ -1,130 +1,109 @@
 <template>
-  <div class="container mx-auto p-4">
-    <!-- Barre de recherche et tri -->
-    <div class="flex justify-between items-center mb-4">
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Rechercher une voiture..."
-        class="p-2 border border-gray-300 rounded w-1/3"
-      />
-      <select
-        v-model="sortOption"
-        class="p-2 border border-gray-300 rounded w-1/4"
-      >
-        <option value="">Trier par</option>
-        <option value="priceAsc">Prix croissant</option>
-        <option value="priceDesc">Prix décroissant</option>
-        <option value="nameAsc">Nom A-Z</option>
-        <option value="nameDesc">Nom Z-A</option>
-      </select>
-    </div>
+  <div class="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-blue-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-sm text-red-400">
+          <a href="mailto:mirijarazafimbelo30@gmail.com" class="hover:underline">
+            <i class="fas fa-envelope text-orange-500"></i>
+            mirijarazafimbelo30@gmail.com
+          </a>
+        </div>
+        <div class="flex space-x-6">
+          <a href="https://linkedin.com/in/your-profile" target="_blank" class="text-gray-500 hover:text-blue-500 transition duration-200">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+          <a href="https://github.com/your-profile" target="_blank" class="text-gray-500 hover:text-gray-800 transition duration-200">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+        </div>
+      </div>
+    </header>
 
-    <!-- Nombre de véhicules -->
-    <div class="mb-4 text-lg font-semibold">
-      {{ filteredItems.length }} véhicules disponibles
-    </div>
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-6 py-16 flex flex-col md:flex-row items-center space-y-12 md:space-y-0">
+      <!-- Left Content -->
+      <div class="md:w-1/2 text-center md:text-left space-y-6">
+        <h1 class="text-5xl font-extrabold text-gray-800 leading-snug">
+          Trouvez votre véhicule idéal
+        </h1>
+        <p class="text-lg text-gray-600">
+          Des voitures élégantes et des motos performantes, toutes au même endroit.
+        </p>
+        <p class="text-xl text-blue-500 font-medium">
+          "Conduisez avec style, explorez avec passion."
+        </p>
+        <div class="mt-8 flex justify-center md:justify-start space-x-4">
+          <router-link to="/voiture" class="px-6 py-3 bg-blue-500 text-white text-lg rounded-full shadow-lg hover:bg-blue-600 focus:outline-none">
+            <i class="fas fa-car text-xl"></i>
+            Voir les Voitures
+          </router-link>
+          <router-link to="/moto" class="px-6 py-3 bg-green-500 text-white text-lg rounded-full shadow-lg hover:bg-green-600 focus:outline-none">
+            <i class="fas fa-motorcycle text-xl"></i>
+            Voir les Motos
+          </router-link>
+        </div>
+      </div>
+      <!-- Right Content -->
+      <div class="md:w-1/2 flex justify-center">
+        <div class="relative w-full max-w-md">
+          <div class="absolute -top-8 -left-8 bg-gradient-to-r from-blue-400 to-green-300 rounded-full h-32 w-32 blur-lg"></div>
+          <img src="@/assets/images/Vehicle Sale-pana.svg" alt="Car" class="w-full z-10 relative">
+          <div class="absolute -bottom-8 -right-8 bg-gradient-to-r from-green-300 to-blue-400 rounded-full h-32 w-32 blur-lg"></div>
+        </div>
+      </div>
+    </main>
 
-    <!-- Liste des cartes -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <AnnonceCard
-        v-for="(item, index) in sortedAndFilteredItems"
-        :key="index"
-        :item="item"
-      />
-    </div>
+        <!-- Services Section -->
+        <section class="bg-white py-16">
+      <div class="container mx-auto px-6 text-center space-y-12">
+        <h2 class="text-4xl font-extrabold text-gray-800">Nos Services</h2>
+        <p class="text-gray-600 text-lg">
+          Nous offrons des solutions pour vous aider à trouver, acheter et profiter de votre véhicule préféré.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Service 1 -->
+          <div class="bg-blue-50 rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300">
+            <i class="fas fa-car text-4xl text-blue-500 mb-4"></i>
+            <h3 class="text-2xl font-bold text-gray-800">Vente de Voitures</h3>
+            <p class="text-gray-600 mt-2">
+              Découvrez notre large sélection de voitures pour tous les budgets et préférences.
+            </p>
+          </div>
+          <!-- Service 2 -->
+          <div class="bg-blue-50 rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300">
+            <i class="fas fa-motorcycle text-4xl text-green-500 mb-4"></i>
+            <h3 class="text-2xl font-bold text-gray-800">Vente de Motos</h3>
+            <p class="text-gray-600 mt-2">
+              Des motos pour les amateurs de vitesse, de confort et d'aventure.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+      <div class="container mx-auto px-6 text-center space-y-3">
+        <p>Contactez-nous en cas de problème</p>
+        <a href="mailto:mirijarazafimbelo30@gmail.com" class="text-blue-400 hover:underline">
+          mirijarazafimbelo30@gmail.com
+        </a>
+        <div class="text-sm text-gray-500 mt-4">
+          © {{ new Date().getFullYear() }} RAZAFIMBELO Mirija Marc. Tous droits réservés.
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import AnnonceCard from "@/components/AnnonceCard.vue";
-
 export default {
-  components: {
-    AnnonceCard,
-  },
-  data() {
-    return {
-      searchQuery: "",
-      sortOption: "",
-      items: [
-        {
-          model: "Toyota Corolla",
-          mileage: 120000,
-          transmission: "Manuelle",
-          year: 2010,
-          price: 8000,
-          publishedDate: "2025-01-01T10:00:00Z",
-          location: "Antananarivo",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Essence",
-        },
-        {
-          model: "Ford Mustang",
-          mileage: 50000,
-          transmission: "Automatique",
-          year: 2018,
-          price: 25000,
-          publishedDate: "2024-12-30T15:00:00Z",
-          location: "Mahajanga",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Essence",
-        },
-        {
-          model: "Honda Civic",
-          mileage: 90000,
-          transmission: "Manuelle",
-          year: 2015,
-          price: 12000,
-          publishedDate: "2024-12-29T08:00:00Z",
-          location: "Fianarantsoa",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Diesel",
-        },
-        {
-          model: "Ford Mustang",
-          mileage: 50000,
-          transmission: "Automatique",
-          year: 2018,
-          price: 25000,
-          publishedDate: "2024-12-30T15:00:00Z",
-          location: "Mahajanga",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Essence",
-        },
-        {
-          model: "Honda Civic",
-          mileage: 90000,
-          transmission: "Manuelle",
-          year: 2015,
-          price: 12000,
-          publishedDate: "2024-12-29T08:00:00Z",
-          location: "Fianarantsoa",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Diesel",
-        },
-      ],
-    };
-  },
-  computed: {
-    filteredItems() {
-      return this.items.filter((item) =>
-        item.model.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
-    sortedAndFilteredItems() {
-      const items = [...this.filteredItems];
-      if (this.sortOption === "priceAsc") {
-        return items.sort((a, b) => a.price - b.price);
-      } else if (this.sortOption === "priceDesc") {
-        return items.sort((a, b) => b.price - a.price);
-      } else if (this.sortOption === "nameAsc") {
-        return items.sort((a, b) => a.model.localeCompare(b.model));
-      } else if (this.sortOption === "nameDesc") {
-        return items.sort((a, b) => b.model.localeCompare(a.model));
-      }
-      return items;
-    },
-  },
+  name: "HomePage",
 };
 </script>
+
+<style>
+/* Ajout d'un style personnalisé si nécessaire */
+</style>

@@ -11,7 +11,7 @@
         class="rounded-t-lg object-cover h-48 w-full"
       />
       <!-- Prix de la voiture -->
-      <div class="absolute top-2 right-2 bg-blue-700 text-white text-sm font-semibold px-4 py-1 rounded-md">
+      <div class="absolute top-2 right-2 bg-green-700 text-white text-sm font-semibold px-4 py-1 rounded-md">
         {{ item.price.toLocaleString() }} MGA
         <span v-if="item.isNegotiable" class="text-green-500 ml-2">(Négociable)</span>
       </div>

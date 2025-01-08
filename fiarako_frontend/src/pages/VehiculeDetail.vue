@@ -29,9 +29,9 @@
         alt="Car Image"
         class="w-full h-72 object-cover rounded-lg"
       />
-      <div class="absolute top-2 right-2 bg-blue-700 text-white text-sm font-semibold px-4 py-1 rounded-md">
+      <div class="absolute top-2 right-2 bg-green-700 text-white text-sm font-semibold px-4 py-1 rounded-md">
         {{ annonce.prix.toLocaleString() }} MGA
-        <span v-if="annonce.statut === 1" class="text-green-500 ml-2">(Négociable)</span>
+        <span v-if="annonce.statut === 1" class="text-white ml-2">(Négociable)</span>
       </div>
     </div>
 
