@@ -132,7 +132,7 @@
 
               <div class="flex justify-evenly">
                   <div class="flex items-center me-4" v-for="(item, index) in carburants" :key="index">
-                      <input v-model="filters.carburant_id" :id="'inline-radio'+ item.label" type="radio" name="carburant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <input v-model="filters.carburant_id" :value="item.id" :id="'inline-radio'+ item.label" type="radio" name="carburant" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                       <label :for="'inline-radio' + item.label" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">{{ item.label }}</label>
                   </div>
 
@@ -155,7 +155,7 @@
               <select v-model="filters.couleur_id" class="w-full px-4 py-2 rounded-lg border border-gray-200">
                 <!-- Options dynamiques depuis la table -->
                 <option value="">Toutes</option>
-                <option value="" v-for="(item, index) in couleurs" :key="index" :value="item.id">{{ item.label }}</option>
+                <option v-for="(item, index) in couleurs" :key="index" :value="item.id">{{ item.label }}</option>
               </select>
             </div>
 
@@ -189,7 +189,7 @@
     </div>
 
     <div v-if="annonces" class="mb-4 text-lg font-semibold">
-      {{ annonces?.length }} voitures disponibles
+      {{ pagination.total }} voitures disponibles
     </div>
 
     <!-- Liste des cartes -->
@@ -202,6 +202,33 @@
         :item="item"
       />
     </div>
+
+  <!-- Pagination -->
+  <nav v-if="annonces" class="flex items-center justify-between mt-6">
+    <!-- Précédent -->
+    <button
+      :disabled="pagination.current_page === 1"
+      @click="this.filters.page = pagination.current_page - 1"
+      class="px-4 py-2 border rounded-md text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Précédent
+    </button>
+
+    <!-- Numéro de page -->
+    <span class="text-sm text-gray-600">
+        Page <strong class="text-gray-900">{{ pagination.current_page }}</strong> sur
+        <strong class="text-gray-900">{{ pagination.last_page }}</strong>
+      </span>
+
+      <!-- Suivant -->
+      <button
+        :disabled="pagination.current_page === pagination.last_page"
+        @click="this.filters.page = pagination.current_page + 1"
+        class="px-4 py-2 border rounded-md text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Suivant
+      </button>
+    </nav>
   </div>
 </template>
 
@@ -219,6 +246,7 @@ export default {
     return {
       numbers: Array.from({ length: 5 }, (_, i) => i + 1),
       loadingAnnonce : false,
+      pagination : null,
       sortOption: "",
       annonces: null,
       marques : [],
@@ -241,12 +269,12 @@ export default {
         annee_min: "",
         annee_max: "",
         carrosserie_id: "",
-        boite_id: "",
+        carburant_id: "",
         couleur_id: "",
         climatisation: "",
-        carburant_id: "",
         transmission_id : "",
-        sort_by: "dd"
+        sort_by: "dd",
+        page: 1
       }
 
     };
@@ -293,6 +321,7 @@ export default {
     }
   },
   methods : {
+
     handleSelectedMarque(){
       this.fetchModeleByMarque();
     },
@@ -307,6 +336,11 @@ export default {
       .then((response) => {
         this.annonces =response.data.data
         console.log(response.data.data);
+        this.pagination = {
+          current_page: response.data.current_page,
+          last_page: response.data.last_page,
+          total: response.data.total,
+        };
         this.loadingAnnonce = false;
       })
       .catch((error) =>{

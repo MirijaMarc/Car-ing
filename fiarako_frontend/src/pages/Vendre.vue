@@ -1,5 +1,11 @@
 <template>
   <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <button
+    @click="goBack"
+      class="px-4 py-2 mb-3 border rounded-md text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
     <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une nouvelle annonce</h2>
     <form @submit.prevent="submitForm">
       <!-- Section : Marque et Modèle -->
@@ -9,7 +15,7 @@
           <select
             id="marque"
             v-model="form.marqueId"
-            @change="loadModeles"
+            @change="handleSelectedMarque"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -216,7 +222,7 @@
       <div class="text-right">
         <button
           type="submit"
-          class="px-6 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-300"
+          class="px-6 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 focus:ring focus:ring-green-300"
         >
           Ajouter l'annonce
         </button>
@@ -227,6 +233,8 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -254,22 +262,11 @@ export default {
     };
   },
   methods: {
-    async loadMarques() {
-      this.marques = await fetch("/api/marques").then((res) => res.json());
+
+    handleSelectedMarque(){
+      this.fetchModeleByMarque();
     },
-    async loadModeles() {
-      if (this.form.marqueId) {
-        this.modeles = await fetch(`/api/modeles?marque_id=${this.form.marqueId}`).then((res) =>
-          res.json()
-        );
-      }
-    },
-    async loadOthers() {
-      this.carrosseries = await fetch("/api/carrosseries").then((res) => res.json());
-      this.carburants = await fetch("/api/carburants").then((res) => res.json());
-      this.transmissions = await fetch("/api/transmissions").then((res) => res.json());
-      this.couleurs = await fetch("/api/couleurs").then((res) => res.json());
-    },
+
     handleImageUpload(event) {
     const files = Array.from(event.target.files);
 
@@ -307,15 +304,73 @@ export default {
     // Réinitialise le champ input avec la nouvelle liste
     this.$refs.fileInput.files = dataTransfer.files;
   },
-    async submitForm() {
-      console.log("Form data:", this.form);
-      console.log("Uploaded images:", this.images);
-      alert("Annonce ajoutée avec succès !");
+  async submitForm() {
+    console.log("Form data:", this.form);
+    console.log("Uploaded images:", this.images);
+    alert("Annonce ajoutée avec succès !");
+  },
+  goBack() {
+    // Utilise l'historique du navigateur pour revenir à la page précédente
+    this.$router ? this.$router.go(-1) : window.history.back();
+  },
+
+  async fetchModeleByMarque(){
+      axios
+      .get("http://localhost:8000/api/modeles/marques/"+this.form.marqueId)
+      .then((response)=>{
+        this.modeles = response.data.data
+        console.log(this.modeles);
+
+
+      })
     },
+
+    async fetchCarburants(){
+      axios
+      .get("http://localhost:8000/api/carburants")
+      .then((response) =>{
+        this.carburants = response.data.data
+      })
+    },
+
+    async fecthMarques(){
+      axios
+      .get("http://localhost:8000/api/marques")
+      .then((response) =>{
+        this.marques = response.data.data
+      })
+    },
+
+    async fetchCarrosseries(){
+      axios
+      .get("http://localhost:8000/api/carrosseries")
+      .then((response) => {
+        this.carrosseries = response.data.data
+      })
+    },
+
+    async fetchTransmissions(){
+      axios
+      .get("http://localhost:8000/api/transmissions")
+      .then((response) => {
+        this.transmissions = response.data.data
+      })
+    },
+
+    async fetchCouleurs(){
+      axios
+      .get("http://localhost:8000/api/couleurs")
+      .then((response) => {
+        this.couleurs = response.data.data
+      })
+    }
   },
   mounted() {
-    this.loadMarques();
-    this.loadOthers();
+    this.fecthMarques();
+    this.fetchCarrosseries();
+    this.fetchTransmissions();
+    this.fetchCouleurs();
+    this.fetchCarburants();
   },
 };
 </script>

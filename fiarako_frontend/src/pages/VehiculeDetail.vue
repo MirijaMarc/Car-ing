@@ -1,7 +1,17 @@
 <template>
-  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
+
+  <div v-if="loading">
+    <AnnonceDetailsSkeleton />
+  </div>
+  <div v-if="annonce" class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
+  <button
+    @click="goBack"
+    class="px-4 py-2 mb-3 border rounded-md text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    <i class="fas fa-arrow-left"></i> Retour
+  </button>
     <!-- Titre de l'annonce -->
-    <h1 class="text-2xl font-bold text-gray-900 mb-4">{{ modele.nom }}</h1>
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">{{ annonce.modele.marque.label+' '+annonce.modele.label + ' '+ annonce.annee }}</h1>
     <p class="text-sm text-gray-500 mb-4">Publié {{ timeSince(annonce.date_annonce) }}</p>
 
     <!-- Galerie d'images -->
@@ -10,7 +20,7 @@
       <div class="relative">
         <div class="flex overflow-x-auto space-x-3 pb-2">
           <img
-            v-for="(image, index) in images"
+            v-for="(image, index) in annonce.images"
             :key="index"
             :src="image.label"
             alt="Car Image"
@@ -52,19 +62,19 @@
       <div class="flex items-center bg-gray-100 p-3 rounded-lg">
         <i class="fas fa-gas-pump text-blue-500 mr-3"></i>
         <span class="text-gray-700">
-          Carburant: <strong>{{ carburant.nom }}</strong>
+          Carburant: <strong>{{ annonce.carburant.label }}</strong>
         </span>
       </div>
       <div class="flex items-center bg-gray-100 p-3 rounded-lg">
         <i class="fas fa-cogs text-blue-500 mr-3"></i>
         <span class="text-gray-700">
-          Boîte: <strong>{{ boite.nom }}</strong>
+          Boîte: <strong>{{ annonce.transmission.label }}</strong>
         </span>
       </div>
       <div class="flex items-center bg-gray-100 p-3 rounded-lg">
         <i class="fas fa-palette text-purple-500 mr-3"></i>
         <span class="text-gray-700">
-          Couleur: <strong>{{ couleur.nom }}</strong>
+          Couleur: <strong>{{ annonce.couleur.label }}</strong>
         </span>
       </div>
       <div class="flex items-center bg-gray-100 p-3 rounded-lg">
@@ -82,7 +92,7 @@
       <div class="flex items-center bg-gray-100 p-3 rounded-lg">
         <i class="fas fa-tools text-gray-500 mr-3"></i>
         <span class="text-gray-700">
-          État: <strong>{{ annonce.etat === 1 ? 'Neuf' : 'Occasion' }}</strong>
+          État: <strong>{{ annonce.etat === 1 ? 'Occasion' : 'Neuf' }}</strong>
         </span>
       </div>
     </div>
@@ -91,7 +101,7 @@
     <div class="mt-6">
       <h2 class="text-lg font-bold text-gray-800 mb-2">Description</h2>
       <p class="text-gray-700 leading-relaxed">
-        Cette {{ modele.nom }} est une voiture idéale pour les trajets en ville ou les longs voyages. Avec son moteur {{ annonce.moteur }},
+        Cette {{ annonce.modele.marque.label+' '+annonce.modele.label }} est une voiture idéale pour les trajets en ville ou les longs voyages. Avec son moteur {{ annonce.moteur }},
         elle offre à la fois performance et efficacité. Son intérieur moderne est équipé de nombreuses options de confort,
         y compris la climatisation et des sièges ergonomiques. Elle a été soigneusement entretenue avec un historique complet
         des révisions. Parfaitement adaptée à Madagascar, cette voiture combine robustesse et élégance.
@@ -108,13 +118,13 @@
           class="w-12 h-12 rounded-full mr-4"
         />
         <div>
-          <p class="text-gray-700 font-semibold">{{ utilisateur.nom }}</p>
-          <p class="text-gray-500 text-sm">Localisation : {{ utilisateur.localisation }}</p>
+          <p class="text-gray-700 font-semibold">{{ annonce.utilisateur.nom }}</p>
+          <p class="text-gray-500 text-sm">Localisation : Antananarivo</p>
         </div>
       </div>
       <div class="mt-4">
         <p class="text-gray-700">
-          <strong>Contact : </strong>{{ utilisateur.telephone }}
+          <strong>Contact : </strong>{{ annonce.utilisateur.telephone }}
         </p>
         <p class="text-gray-500 text-sm">
           Appelez directement pour obtenir plus d'informations sur cette annonce.
@@ -125,56 +135,19 @@
 </template>
 
 <script>
+import AnnonceDetailsSkeleton from '@/components/skeletons/AnnonceDetailsSkeleton.vue';
 import axios from 'axios';
 
+
 export default {
+  components: {
+    AnnonceDetailsSkeleton
+  },
   data() {
     return {
+      loading: false,
       annonce_id:"",
-      annonce: {
-        id: 1,
-        annee: 2020,
-        kilometrage: 45000,
-        prix: 35000000,
-        statut: 1,
-        volant: 1,
-        climatisation: 1,
-        moteur: "V8",
-        date_annonce: "2025-01-01",
-        etat: 1,
-      },
-      modele: {
-        id: 1,
-        nom: "Toyota Corolla",
-      },
-      carburant: {
-        id: 1,
-        nom: "Essence",
-      },
-      boite: {
-        id: 1,
-        nom: "Manuelle",
-      },
-      couleur: {
-        id: 1,
-        nom: "Bleu Métallisé",
-      },
-      utilisateur: {
-        id: 1,
-        nom: "Rasolo John",
-        localisation: "Antananarivo, Madagascar",
-        telephone: "+261 34 12 34 56",
-      },
-      images: [
-        { id: 1, label: "https://via.placeholder.com/600x400" },
-        { id: 2, label: "https://via.placeholder.com/600x400?text=Image+2" },
-        { id: 3, label: "https://via.placeholder.com/600x400?text=Image+3" },
-        { id: 4, label: "https://via.placeholder.com/600x400?text=Image+4" },
-        { id: 5, label: "https://via.placeholder.com/600x400?text=Image+5" },
-        { id: 6, label: "https://via.placeholder.com/600x400?text=Image+5" },
-        { id: 7, label: "https://via.placeholder.com/600x400?text=Image+5" },
-        { id: 8, label: "https://via.placeholder.com/600x400?text=Image+5" },
-      ],
+      annonce : null,
       mainImage: "https://via.placeholder.com/600x400",
     };
   },
@@ -200,15 +173,31 @@ export default {
       return "quelques secondes";
     },
     async fetchAnnonceById(){
+      this.loading = true;
       axios
       .get(`http://localhost:8000/api/annonces/${this.annonce_id}`)
       .then((response) =>{
-        console.log(response.data);
+        this.annonce = response.data;
+        console.log(this.annonce);
+        this.loading = false
       })
-    }
+      .catch((error) =>{
+        console.log(error);
+        this.loading = false
+      })
+      .finally(() =>{
+        this.loading = false
+      })
+    },
+    goBack() {
+      // Utilise l'historique du navigateur pour revenir à la page précédente
+      this.$router ? this.$router.go(-1) : window.history.back();
+    },
   },
   mounted(){
     this.annonce_id = this.$route.params.id;
+    console.log(this.annonce_id);
+
     this.fetchAnnonceById()
   }
 };

@@ -32,3 +32,5 @@ Route::apiResource('annonces', AnnonceController::class);
 // Route::get('api/annonces', [AnnonceController::class, 'getFilteredAnnonces']);
 Route::get('modeles/marques/{marque_id}', [ModeleController::class, 'getByMarque']);
 Route::get('tris', [TriController::class, 'index']);
+Route::get('carrosseries_motos', [CarrosserieController::class, 'getAllisMoto']);
+Route::get('annonces_motos', [AnnonceController::class, 'getFilteredAnnoncesMoto']);

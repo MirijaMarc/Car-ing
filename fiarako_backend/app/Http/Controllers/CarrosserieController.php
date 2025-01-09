@@ -12,7 +12,19 @@ class CarrosserieController extends Controller
     {
         $perPage = $request->input('per_page', 15); // Pagination, 15 résultats par page par défaut
 
-        $carrosseries = Carrosserie::where('etat', '>=', 10)
+        $carrosseries = Carrosserie::where('etat', '>=', 10)->where('isMoto', false)
+
+            ->paginate($perPage); // Pagination
+
+        return response()->json($carrosseries);
+    }
+
+    // Méthode pour obtenir toutes les carrosseries avec état >= 10, triées par date d'annonce
+    public function getAllisMoto(Request $request)
+    {
+        $perPage = $request->input('per_page', 15); // Pagination, 15 résultats par page par défaut
+
+            $carrosseries = Carrosserie::where('etat', '>=', 10)->where('isMoto', true)
             ->paginate($perPage); // Pagination
 
         return response()->json($carrosseries);

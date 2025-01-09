@@ -13,7 +13,7 @@
       <!-- Prix de la voiture -->
       <div class="absolute top-2 right-2 bg-green-700 text-white text-sm font-semibold px-4 py-1 rounded-md">
         {{ item.prix.toLocaleString() }} MGA
-        <span v-if="item.is_negociable" class="text-green-500 ml-2">(Négociable)</span>
+        <span v-if="item.is_negociable" class="text-white ml-2">(Négociable)</span>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
         <div class="flex items-center">
           <i
             class="fas"
-            :class="item.transmission.label === 'Manuelle' ? 'fa-cogs text-blue-500 mr-2' : 'fa-car-side text-blue-500 mr-2'"
+            :class="item.transmission.label === 'Manuelle' ? 'fa-cogs text-blue-500 mr-2' : isMoto == true ? 'fa-motorcycle text-blue-500 mr-2' : 'fa-car-side text-blue-500 mr-2'"
           ></i>
           <span class="text-gray-700">{{ item.transmission.label }}</span>
         </div>
@@ -68,6 +68,10 @@ export default {
       type: Object,
       required: true,
     },
+    isMoto:{
+      type : Boolean,
+      required : false
+    }
   },
   methods: {
     /**
