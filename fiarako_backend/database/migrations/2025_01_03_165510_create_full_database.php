@@ -80,6 +80,8 @@ return new class extends Migration
             $table->foreignId('couleur_id')->constrained('couleurs');
             $table->foreignId('utilisateur_id')->constrained('utilisateurs');
             $table->foreignId('carrosserie_id')->constrained('carrosseries');
+            $table->foreignId('transmission_id')->constrained('transmissions');
+
         });
 
         // Table images
@@ -117,10 +119,18 @@ return new class extends Migration
             $table->foreignId('annonce_id')->constrained('annonces');
             $table->foreignId('utilisateur_id')->constrained('utilisateurs');
         });
+
+        // Table offres
+        Schema::create('tris', function (Blueprint $table) {
+            $table->id();
+            $table->string('label');
+            $table->string('code');
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists('tris');
         Schema::dropIfExists('offres');
         Schema::dropIfExists('enregistrements');
         Schema::dropIfExists('vues');

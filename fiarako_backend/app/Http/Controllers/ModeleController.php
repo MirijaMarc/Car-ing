@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ModeleController extends Controller
 {
+
+    public function getByMarque($marque_id){
+        $modeles = Modele::where('marque_id', $marque_id)->paginate(10);
+        return response()->json($modeles);
+
+    }
+
     // Méthode pour obtenir tous les modèles
     public function index()
     {

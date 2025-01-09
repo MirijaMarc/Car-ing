@@ -94,31 +94,40 @@ class AnnonceController extends Controller
             $query->where('couleur_id', $filters['couleur_id']);
         }
 
+        if (!empty($filters['carburant_id'])) {
+            $query->where('carburant_id', $filters['carburant_id']);
+        }
+
+        if (!empty($filters['transmission_id'])) {
+            $query->where('transmission_id', $filters['transmission_id']);
+        }
+
+
         // Tri
         if (!empty($filters['sort_by'])) {
             switch ($filters['sort_by']) {
-                case 'date_ancienne':
+                case 'dc':
                     $query->orderBy('date_annonce', 'asc');
                     break;
-                case 'date_recente':
+                case 'dd':
                     $query->orderBy('date_annonce', 'desc');
                     break;
-                case 'kilometrage_croissant':
+                case 'kc':
                     $query->orderBy('kilometrage', 'asc');
                     break;
-                case 'kilometrage_decroissant':
+                case 'kd':
                     $query->orderBy('kilometrage', 'desc');
                     break;
-                case 'annee_croissante':
+                case 'ac':
                     $query->orderBy('annee', 'asc');
                     break;
-                case 'annee_decroissante':
+                case 'ad':
                     $query->orderBy('annee', 'desc');
                     break;
-                case 'prix_croissant':
+                case 'pc':
                     $query->orderBy('prix', 'asc');
                     break;
-                case 'prix_decroissant':
+                case 'pd':
                     $query->orderBy('prix', 'desc');
                     break;
             }

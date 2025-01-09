@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         DB::table('transmissions')->truncate();
         DB::table('couleurs')->truncate();
         DB::table('annonces')->truncate();
+        DB::table('tris')->truncate();
 
         // Réactiver les contraintes de clés étrangères
         Schema::enableForeignKeyConstraints();
@@ -93,6 +94,17 @@ class DatabaseSeeder extends Seeder
             ['label' => 'Noir', 'etat' => 10],
         ]);
 
+        DB::table('tris')->insert([
+            ['label'=> 'Date croissante','code' => 'dc'],
+            ['label'=> 'Date décroissante','code' => 'dd'],
+            ['label'=> 'Kilométrage croissant','code' => 'kc'],
+            ['label'=> 'Kilometrage décroissant','code' => 'kd'],
+            ['label'=> 'Année croissante','code' => 'ac'],
+            ['label'=> 'Année décroissante','code' => 'ad'],
+            ['label'=> 'Prix croissant','code' => 'pc'],
+            ['label'=> 'Prix décroissant','code' => 'pd'],
+        ]);
+
         // Générer 20 annonces (10 voitures et 10 motos)
         $annonces = [];
         for ($i = 1; $i <= 10; $i++) {
@@ -112,6 +124,7 @@ class DatabaseSeeder extends Seeder
                 'couleur_id' => rand(1, 3),
                 'utilisateur_id' => rand(1, 3),
                 'carrosserie_id' => rand(1, 2),
+                'transmission_id' => rand (1,2)
             ];
         }
 
@@ -132,6 +145,7 @@ class DatabaseSeeder extends Seeder
                 'couleur_id' => rand(1, 3),
                 'utilisateur_id' => rand(1, 3),
                 'carrosserie_id' => 3,
+                'transmission_id' => rand (1,2)
             ];
         }
 
