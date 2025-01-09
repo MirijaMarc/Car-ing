@@ -286,6 +286,7 @@ export default {
   watch : {
     filters: {
       handler(newValue, oldValue){
+        this.annonces = null
         this.fetchAnnonces();
       },
       deep: true
