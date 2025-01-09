@@ -27,6 +27,7 @@ class Annonce extends Model
         'boite_id',
         'couleur_id',
         'utilisateur_id',
+        'carrosserie_id'
     ];
 
     public function utilisateur()
@@ -39,6 +40,11 @@ class Annonce extends Model
         return $this->belongsTo(Modele::class, 'modele_id');
     }
 
+    public function carrosserie()
+    {
+        return $this->belongsTo(Carrosserie::class, 'carrosserie_id');
+    }
+
     public function carburant()
     {
         return $this->belongsTo(Carburant::class, 'carburant_id');
@@ -47,6 +53,11 @@ class Annonce extends Model
     public function couleur()
     {
         return $this->belongsTo(Couleur::class, 'couleur_id');
+    }
+
+    public function transmission()
+    {
+        return $this->belongsTo(Transmission::class, 'transmission_id');
     }
 
     public function images()
@@ -68,4 +79,5 @@ class Annonce extends Model
     {
         return $this->hasMany(Offre::class, 'annonce_id');
     }
+
 }

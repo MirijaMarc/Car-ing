@@ -184,14 +184,20 @@
     </div>
 
     <!-- Nombre de véhicules -->
-    <div class="mb-4 text-lg font-semibold">
-      {{ items.length }} voitures disponibles
+    <div v-if="loadingAnnonce" class="mb-4 text-lg font-semibold">
+      <div class="bg-gray-300 h-4 w-32 mr-2 rounded shimmer"></div>
+    </div>
+
+    <div v-if="annonces" class="mb-4 text-lg font-semibold">
+      {{ annonces?.length }} voitures disponibles
     </div>
 
     <!-- Liste des cartes -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <AnnonceSkeleton v-if="loadingAnnonce" v-for="(item, index) in numbers" :key="index"/>
       <AnnonceCard
-        v-for="(item, index) in items"
+        v-if="annonces"
+        v-for="(item, index) in annonces"
         :key="index"
         :item="item"
       />
@@ -201,51 +207,20 @@
 
 <script>
 import AnnonceCard from "@/components/AnnonceCard.vue";
+import AnnonceSkeleton from "@/components/skeletons/AnnonceSkeleton.vue";
 import axios from "axios";
 
 export default {
   components: {
     AnnonceCard,
+    AnnonceSkeleton
   },
   data() {
     return {
+      numbers: Array.from({ length: 5 }, (_, i) => i + 1),
+      loadingAnnonce : false,
       sortOption: "",
-      items: [
-        {
-          model: "Toyota Corolla",
-          mileage: 120000,
-          transmission: "Manuelle",
-          year: 2010,
-          price: 8000,
-          publishedDate: "2025-01-01T10:00:00Z",
-          location: "Antananarivo",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Essence",
-        },
-        {
-          model: "Ford Mustang",
-          mileage: 50000,
-          transmission: "Automatique",
-          year: 2018,
-          price: 25000,
-          publishedDate: "2024-12-30T15:00:00Z",
-          location: "Mahajanga",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Essence",
-        },
-        {
-          model: "Honda Civic",
-          mileage: 90000,
-          transmission: "Manuelle",
-          year: 2015,
-          price: 12000,
-          publishedDate: "2024-12-29T08:00:00Z",
-          location: "Fianarantsoa",
-          image: "https://via.placeholder.com/300",
-          fuelType: "Diesel",
-        },
-
-      ],
+      annonces: null,
       marques : [],
       carrosseries : [],
       transmissions : [],
@@ -271,7 +246,7 @@ export default {
         climatisation: "",
         carburant_id: "",
         transmission_id : "",
-        sort_by: ""
+        sort_by: "dd"
       }
 
     };
@@ -305,6 +280,7 @@ export default {
     this.fetchCouleurs();
     this.fetchCarburants();
     this.fetchTris();
+    this.fetchAnnonces();
 
   },
   watch : {
@@ -316,23 +292,27 @@ export default {
     }
   },
   methods : {
-
     handleSelectedMarque(){
       this.fetchModeleByMarque();
     },
 
 
     async fetchAnnonces(){
+      this.loadingAnnonce = true;
       axios
       .get("http://localhost:8000/api/annonces", {
         params :this.filters
       })
       .then((response) => {
+        this.annonces =response.data.data
         console.log(response.data.data);
+        this.loadingAnnonce = false;
       })
       .catch((error) =>{
         console.error(error)
+        this.loadingAnnonce = false;
       })
+
     },
 
     async fetchTris(){

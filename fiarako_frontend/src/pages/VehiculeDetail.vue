@@ -125,9 +125,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+      annonce_id:"",
       annonce: {
         id: 1,
         annee: 2020,
@@ -196,6 +199,17 @@ export default {
       }
       return "quelques secondes";
     },
+    async fetchAnnonceById(){
+      axios
+      .get(`http://localhost:8000/api/annonces/${this.annonce_id}`)
+      .then((response) =>{
+        console.log(response.data);
+      })
+    }
   },
+  mounted(){
+    this.annonce_id = this.$route.params.id;
+    this.fetchAnnonceById()
+  }
 };
 </script>
