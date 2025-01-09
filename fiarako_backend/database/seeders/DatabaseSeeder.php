@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
         // Désactiver les contraintes de clés étrangères
         Schema::disableForeignKeyConstraints();
 
@@ -33,7 +32,6 @@ class DatabaseSeeder extends Seeder
         // Réactiver les contraintes de clés étrangères
         Schema::enableForeignKeyConstraints();
 
-        // User::factory(10)->create();
         // Insérer les utilisateurs
         DB::table('utilisateurs')->insert([
             [
@@ -59,83 +57,85 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        // Insérer les marques
+        // Insérer les marques, modèles, carrosseries, carburants, transmissions et couleurs
         DB::table('marques')->insert([
             ['label' => 'Toyota', 'etat' => 10],
             ['label' => 'Renault', 'etat' => 10],
-            ['label' => 'Tesla', 'etat' => 10],
+            ['label' => 'Honda', 'etat' => 20],
         ]);
 
-        // Insérer les modèles
         DB::table('modeles')->insert([
             ['label' => 'Corolla', 'etat' => 10, 'marque_id' => 1],
             ['label' => 'Clio', 'etat' => 10, 'marque_id' => 2],
-            ['label' => 'Model 3', 'etat' => 10, 'marque_id' => 3],
+            ['label' => 'CBR600RR', 'etat' => 20, 'marque_id' => 3],
         ]);
 
-        // Insérer les carrosseries
         DB::table('carrosseries')->insert([
-            ['label' => 'Berline', 'etat' => 10],
-            ['label' => 'SUV', 'etat' => 10],
-            ['label' => 'Hatchback', 'etat' => 10],
+            ['label' => 'Berline', 'isMoto' => false, 'etat' => 10],
+            ['label' => 'SUV', 'isMoto' => false, 'etat' => 10],
+            ['label' => 'Moto', 'isMoto' => true, 'etat' => 20],
         ]);
 
-        // Insérer les carburants
         DB::table('carburants')->insert([
             ['label' => 'Essence', 'etat' => 10],
             ['label' => 'Diesel', 'etat' => 10],
             ['label' => 'Électrique', 'etat' => 10],
         ]);
 
-        // Insérer les transmissions
         DB::table('transmissions')->insert([
             ['label' => 'Manuelle', 'etat' => 10],
             ['label' => 'Automatique', 'etat' => 10],
         ]);
 
-        // Insérer les couleurs
         DB::table('couleurs')->insert([
             ['label' => 'Rouge', 'etat' => 10],
             ['label' => 'Bleu', 'etat' => 10],
             ['label' => 'Noir', 'etat' => 10],
         ]);
 
-        // Insérer les annonces
-        DB::table('annonces')->insert([
-            [
-                'immatriculation' => 'AB-123-CD',
-                'annee' => 2018,
-                'kilometrage' => 50000,
-                'prix' => 15000.00,
+        // Générer 20 annonces (10 voitures et 10 motos)
+        $annonces = [];
+        for ($i = 1; $i <= 10; $i++) {
+            $annonces[] = [
+                'annee' => rand(2015, 2023),
+                'kilometrage' => rand(10000, 150000),
+                'prix' => rand(10000, 30000),
                 'statut' => 1,
                 'volant' => 1,
-                'climatisation' => 1,
-                'moteur' => '1.6L',
-                'date_annonce' => '2025-01-01',
+                'climatisation' => rand(0, 1),
+                'moteur' => '1.' . rand(4, 8) . 'L',
+                'date_annonce' => now()->subDays(rand(0, 365)),
                 'etat' => 10,
-                'modele_id' => 1,
+                'modele_id' => rand(1, 2),
+                'carburant_id' => rand(1, 3),
+                'boite_id' => rand(1, 2),
+                'couleur_id' => rand(1, 3),
+                'utilisateur_id' => rand(1, 3),
+                'carrosserie_id' => rand(1, 2),
+            ];
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            $annonces[] = [
+                'annee' => rand(2010, 2023),
+                'kilometrage' => rand(5000, 80000),
+                'prix' => rand(3000, 15000),
+                'statut' => 1,
+                'volant' => 0,
+                'climatisation' => 0,
+                'moteur' => '600cc',
+                'date_annonce' => now()->subDays(rand(0, 365)),
+                'etat' => 20,
+                'modele_id' => 3,
                 'carburant_id' => 1,
                 'boite_id' => 1,
-                'couleur_id' => 1,
-                'utilisateur_id' => 1,
-            ],
-            [
-                'immatriculation' => 'EF-456-GH',
-                'annee' => 2020,
-                'kilometrage' => 30000,
-                'prix' => 25000.00,
-                'statut' => 1,
-                'volant' => 1,
-                'climatisation' => 1,
-                'moteur' => '2.0L',
-                'date_annonce' => '2025-01-02',
-                'etat' => 10,
-                'modele_id' => 2,
-                'carburant_id' => 2,
-                'boite_id' => 2,
-                'couleur_id' => 2,
-                'utilisateur_id' => 2,
-            ],
-        ]);
+                'couleur_id' => rand(1, 3),
+                'utilisateur_id' => rand(1, 3),
+                'carrosserie_id' => 3,
+            ];
+        }
+
+        DB::table('annonces')->insert($annonces);
     }
+
 }

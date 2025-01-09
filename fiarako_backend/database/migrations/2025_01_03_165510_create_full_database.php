@@ -37,6 +37,7 @@ return new class extends Migration
         Schema::create('carrosseries', function (Blueprint $table) {
             $table->id();
             $table->string('label');
+            $table->boolean('isMoto');
             $table->integer('etat')->default(1)->check('etat IN (0, 1)');
         });
 
@@ -64,7 +65,6 @@ return new class extends Migration
         // Table annonces
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
-            $table->string('immatriculation');
             $table->integer('annee');
             $table->integer('kilometrage');
             $table->decimal('prix');
@@ -79,6 +79,7 @@ return new class extends Migration
             $table->foreignId('boite_id')->constrained('transmissions');
             $table->foreignId('couleur_id')->constrained('couleurs');
             $table->foreignId('utilisateur_id')->constrained('utilisateurs');
+            $table->foreignId('carrosserie_id')->constrained('carrosseries');
         });
 
         // Table images
