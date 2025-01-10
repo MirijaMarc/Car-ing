@@ -24,7 +24,7 @@ class Annonce extends Model
         'etat',
         'modele_id',
         'carburant_id',
-        'boite_id',
+        'transmission_id',
         'couleur_id',
         'utilisateur_id',
         'carrosserie_id'

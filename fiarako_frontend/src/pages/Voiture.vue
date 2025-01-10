@@ -102,11 +102,11 @@
               <label class="text-gray-700">Climatisation</label>
               <div class="flex justify-evenly">
                   <div class="flex items-center me-4">
-                      <input v-model="filters.climatisation" id="inline-radio4" type="radio" value="1" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <input v-model="filters.climatisation" id="inline-radio4" type="radio" :value="true" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                       <label for="inline-radio4" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Oui</label>
                   </div>
                   <div class="flex items-center me-4">
-                      <input v-model="filters.climatisation" id="inline-2-radio5" type="radio" value="0" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <input v-model="filters.climatisation" id="inline-2-radio5" type="radio" :value="false" name="climatisation" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                       <label for="inline-2-radio5" class="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">Non</label>
                   </div>
               </div>
@@ -244,6 +244,7 @@ export default {
   },
   data() {
     return {
+
       numbers: Array.from({ length: 5 }, (_, i) => i + 1),
       loadingAnnonce : false,
       pagination : null,
@@ -321,6 +322,8 @@ export default {
     }
   },
   methods : {
+
+
 
     handleSelectedMarque(){
       this.fetchModeleByMarque();

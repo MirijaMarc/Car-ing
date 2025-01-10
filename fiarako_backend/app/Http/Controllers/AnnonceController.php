@@ -242,19 +242,21 @@ class AnnonceController extends Controller
             'prix' => 'required|numeric',
             'statut' => 'required|integer',
             'volant' => 'required|integer',
-            'climatisation' => 'required|integer',
+            'climatisation' => 'required|boolean',
             'moteur' => 'required|string|max:255',
             'carrosseries' => 'required|integer',
-            'date_annonce' => 'required|date',
+            'is_negociable' => 'required|boolean',
             'etat' => 'required|integer',
             'modele_id' => 'required|exists:modeles,id',
             'carburant_id' => 'required|exists:carburants,id',
-            'boite_id' => 'required|exists:boites,id',
+            'transmission_id' => 'required|exists:transmissions,id',
             'couleur_id' => 'required|exists:couleurs,id',
             'utilisateur_id' => 'required|exists:utilisateurs,id',
         ]);
 
-        $annonce = Annonce::create($request->all());
+        $data = $request->all();
+        $data['date_annonce']= date('Y-m-d');
+        $annonce = Annonce::create($data);
 
         return response()->json($annonce, 201);
     }

@@ -8,13 +8,32 @@
     </button>
     <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une nouvelle annonce</h2>
     <form @submit.prevent="submitForm">
+      <div class="mb-4">
+          <label for="type" class="block text-sm font-medium text-gray-700">Type de véhicule</label>
+          <select
+            id="type"
+            v-model="form.etat"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            required
+          >
+            <option value="" disabled>Choisir un type de véhicule</option>
+            <option value="10">Voiture</option>
+            <option value="20">Moto</option>
+
+
+
+          </select>
+      </div>
+
+
+
       <!-- Section : Marque et Modèle -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div>
           <label for="marque" class="block text-sm font-medium text-gray-700">Marque</label>
           <select
             id="marque"
-            v-model="form.marqueId"
+            v-model="form.marque_id"
             @change="handleSelectedMarque"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
@@ -29,7 +48,7 @@
           <label for="modele" class="block text-sm font-medium text-gray-700">Modèle</label>
           <select
             id="modele"
-            v-model="form.modeleId"
+            v-model="form.modele_id"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -47,7 +66,7 @@
           <label for="carrosserie" class="block text-sm font-medium text-gray-700">Carrosserie</label>
           <select
             id="carrosserie"
-            v-model="form.carrosserieId"
+            v-model="form.carrosserie_id"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -59,17 +78,17 @@
         </div>
         <div>
           <label for="annee" class="block text-sm font-medium text-gray-700">Année</label>
-          <input
+          <select
             id="annee"
             v-model="form.annee"
-            type="number"
-            min="1900"
-            max="2099"
-            step="1"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            placeholder="Ex : 2020"
             required
-          />
+          >
+            <option value="" disabled>Choisir une année</option>
+            <option v-for="item in years" :key="item" :value="item">
+              {{ item }}
+            </option>
+          </select>
         </div>
         <div>
           <label for="kilometrage" class="block text-sm font-medium text-gray-700">Kilométrage</label>
@@ -103,7 +122,7 @@
           <label class="text-sm font-medium text-gray-700">Négociable</label>
           <input
             id="negotiable"
-            v-model="form.isNegotiable"
+            v-model="form.is_negotiable"
             type="checkbox"
             class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
@@ -116,7 +135,7 @@
           <label for="couleur" class="block text-sm font-medium text-gray-700">Couleur</label>
           <select
             id="couleur"
-            v-model="form.couleurId"
+            v-model="form.couleur_id"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -137,13 +156,13 @@
         </div>
       </div>
 
-      <!-- Section : Carburant et Transmission -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <!-- Section : Carburant et Transmission et Moteur -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div>
           <label for="carburant" class="block text-sm font-medium text-gray-700">Carburant</label>
           <select
             id="carburant"
-            v-model="form.carburantId"
+            v-model="form.carburant_id"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -157,7 +176,7 @@
           <label for="transmission" class="block text-sm font-medium text-gray-700">Transmission</label>
           <select
             id="transmission"
-            v-model="form.transmissionId"
+            v-model="form.transmission_id"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           >
@@ -165,6 +184,48 @@
             <option v-for="transmission in transmissions" :key="transmission.id" :value="transmission.id">
               {{ transmission.label }}
             </option>
+          </select>
+        </div>
+        <div>
+          <label for="moteur" class="block text-sm font-medium text-gray-700">Moteur</label>
+          <input
+            id="moteur"
+            v-model="form.moteur"
+            type="text"
+            min="0"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            placeholder="Ex : 1.8L"
+            required
+          />
+        </div>
+      </div>
+
+            <!-- Section : Statut et Volant -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label for="statut" class="block text-sm font-medium text-gray-700">Statut</label>
+          <select
+            id="statu"
+            v-model="form.statut"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            required
+          >
+            <option value="" disabled>Choisir un Statut</option>
+            <option value="10">Neuf</option>
+            <option value="1">Occasion</option>
+          </select>
+        </div>
+        <div>
+          <label for="volant" class="block text-sm font-medium text-gray-700">Volant</label>
+          <select
+            id="volant"
+            v-model="form.volant"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            required
+          >
+            <option value="" disabled>Choisir un volant</option>
+            <option value="0">Gauche</option>
+            <option value="1">Droite</option>
           </select>
         </div>
       </div>
@@ -238,18 +299,23 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      years : this.generateYears(1990,2025),
       form: {
-        marqueId: "",
         modeleId: "",
-        carrosserieId: "",
+        carrosserie_id: "",
         annee: null,
         kilometrage: null,
         prix: null,
-        isNegotiable: false,
-        couleurId: "",
+        is_negotiable: false,
+        couleur_id: "",
         climatisation: false,
-        carburantId: "",
-        transmissionId: "",
+        carburant_id: "",
+        transmission_id: "",
+        utilisateur_id: "1",
+        moteur: "",
+        statut: "",
+        volant: "",
+        etat: "10"
       },
       marques: [],
       modeles: [],
@@ -262,6 +328,16 @@ export default {
     };
   },
   methods: {
+
+
+    generateYears(start, end) {
+      const years = [];
+      for (let year = start; year <= end; year++) {
+        years.push(year);
+      }
+      return years;
+    },
+
 
     handleSelectedMarque(){
       this.fetchModeleByMarque();
@@ -316,7 +392,7 @@ export default {
 
   async fetchModeleByMarque(){
       axios
-      .get("http://localhost:8000/api/modeles/marques/"+this.form.marqueId)
+      .get("http://localhost:8000/api/modeles/marques/"+this.form.marque_id)
       .then((response)=>{
         this.modeles = response.data.data
         console.log(this.modeles);
@@ -342,11 +418,16 @@ export default {
     },
 
     async fetchCarrosseries(){
+      let url = "http://localhost:8000/api/carrosseries"
+      if (this.form.etat == 20){
+        url = "http://localhost:8000/api/carrosseries_motos"
+      }
       axios
-      .get("http://localhost:8000/api/carrosseries")
+      .get(url)
       .then((response) => {
         this.carrosseries = response.data.data
       })
+
     },
 
     async fetchTransmissions(){
@@ -371,6 +452,13 @@ export default {
     this.fetchTransmissions();
     this.fetchCouleurs();
     this.fetchCarburants();
+
   },
+  watch: {
+    'form.etat'(newValue, oldValue){
+      this.fetchCarrosseries()
+
+    }
+  }
 };
 </script>

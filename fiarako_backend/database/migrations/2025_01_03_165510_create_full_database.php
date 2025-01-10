@@ -70,10 +70,11 @@ return new class extends Migration
             $table->decimal('prix');
             $table->integer('statut');
             $table->integer('volant');
-            $table->integer('climatisation');
+            $table->boolean('climatisation');
             $table->string('moteur');
             $table->date('date_annonce');
             $table->boolean('is_negociable');
+            $table->string('description');
             $table->integer('etat');
             $table->foreignId('modele_id')->constrained('modeles');
             $table->foreignId('carburant_id')->constrained('carburants');
