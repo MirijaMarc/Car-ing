@@ -12,22 +12,22 @@ const router = createRouter({
       component: () => import('@/pages/Accueil.vue')
     },
     {
+      path : '/login',
+      name : 'Login',
+      component: () => import('@/pages/Login.vue')
+    },
+    {
+      path : '/inscription',
+      name : 'Inscription',
+      component: () => import('@/pages/Inscription.vue')
+    },
+    {
       path: '/',
       component: DefaultLayout,
       children:[
         {
           path:'',
           redirect:  {name : 'Home'}
-        },
-        {
-          path : 'login',
-          name : 'Login',
-          component: () => import('@/pages/Login.vue')
-        },
-        {
-          path : 'inscription',
-          name : 'Inscription',
-          component: () => import('@/pages/Inscription.vue')
         },
         {
           path : 'moto',
