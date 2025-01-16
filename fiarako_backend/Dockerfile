@@ -19,7 +19,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Configurer le dossier de l'application Laravel
 WORKDIR /var/www
-COPY ./fiarako_backend /var/www
+COPY . /var/www
 RUN composer install --optimize-autoloader --no-dev
 
 # Permissions pour les dossiers Laravel
