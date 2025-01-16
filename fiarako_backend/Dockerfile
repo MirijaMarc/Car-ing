@@ -25,5 +25,8 @@ RUN composer install --optimize-autoloader --no-dev
 # Permissions pour les dossiers Laravel
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
+RUN php-fpm -v
+
+
 EXPOSE 9000
 CMD ["php-fpm"]
