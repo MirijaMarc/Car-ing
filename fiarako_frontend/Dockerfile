@@ -2,7 +2,7 @@
 FROM node:18 as build-stage
 
 WORKDIR /app
-COPY ./frontend /app
+COPY ./fiarako_frontend /app
 RUN npm install
 RUN npm run build
 
